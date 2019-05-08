@@ -13,6 +13,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Override
     public User queryUser(Integer id) {
+        //1
         System.out.println(userMapper.selectAll());
         return userMapper.selectByPrimaryKey(id);
     }
