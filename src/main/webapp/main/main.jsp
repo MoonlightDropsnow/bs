@@ -9,6 +9,9 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/IconExtension.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/datagrid-detailview.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.edatagrid.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
 
 </head>
 <script type="text/javascript">
@@ -61,29 +64,28 @@
     })
 </script>
 <body class="easyui-layout">
-<div data-options="region:'north',split:true" style="height:60px;background-color:  #5C160C">
-    <div style="font-size: 24px;color: #FAF7F7;font-family: 楷体;font-weight: 900;width: 500px;float:left;padding-left: 20px;padding-top: 10px">
-        后台管理系统
+<div data-options="region:'north',split:true" style="height:60px;background-color: #7EC0EE">
+    <div style="font-size: 24px;color: #FFFFFF;font-family: 楷体;font-weight: 900;width: 500px;float:left;padding-left: 20px;padding-top: 10px">
+        货物管理系统
     </div>
-    <div style="font-size: 16px;color: #FAF7F7;font-family: 楷体;width: 300px;float:right;padding-top:15px">
+    <div style="font-size: 16px;color: #FFFFFF;font-family: 楷体;width: 300px;float:right;padding-top:15px">
         欢迎您:<!-- $ {sessionScope.admin.name}-->
-        &nbsp;<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改密码</a>&nbsp;&nbsp;<a href="#"
-                                                                                                              class="easyui-linkbutton"
-                                                                                                              data-options="iconCls:'icon-01',onClick:function(){location.href='${pageContext.request.contextPath}/admin/quit';}">退出系统</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-back',onClick:function(){location.href='${pageContext.request.contextPath}/admin/quit';}">退出系统</a>
+        &nbsp;&nbsp;<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-help'">帮助</a>
     </div>
 </div>
-<div data-options="region:'south',split:true" style="height: 40px;background: #5C160C">
+<div data-options="region:'south',split:true" style="height: 40px;background: #7EC0EE">
     <div style="text-align: center;font-size:15px; color: #FAF7F7;font-family: 楷体">&copy;2351162147@qq.com</div>
 </div>
 
-<div data-options="region:'west',title:'导航菜单',split:true" style="width:220px;">
+<div data-options="region:'west',title:'功能菜单',split:true" style="width:200px;">
     <div id="menu" class="easyui-accordion" data-options="fit:true">
 
     </div>
 </div>
 <div data-options="region:'center'">
     <div id="tabs" class="easyui-tabs" data-options="fit:true,narrow:true,pill:true">
-        <div title="主页" data-options="iconCls:'icon-neighbourhood',"
+        <div title="欢迎" data-options="iconCls:'icon-neighbourhood',"
              style="background-image:url(${pageContext.request.contextPath}/main/image/main.jpg);background-repeat: no-repeat;background-size:100% 100%;"></div>
     </div>
 

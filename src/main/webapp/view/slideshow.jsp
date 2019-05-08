@@ -37,7 +37,7 @@
                 if (row != null) {
                     if (confirm("确定删除？")) {
                         $.get(
-                            "${pageContext.request.contextPath}/banner/removeBanner",
+                            "${pageContext.request.contextPath}/cargo/removeCargo",
                             {id: row.id},
                             function () {
                                 $("#slideshowDatagrid").edatagrid("reload");
@@ -61,23 +61,24 @@
             }
         }]
         $("#slideshowDatagrid").edatagrid({
-            title: "轮播图",
+            title: "货物",
             fitColumns: true,
-            url: "${pageContext.request.contextPath}/banner/allBannersThisPage",
+            url: "${pageContext.request.contextPath}/cargo/allCargosThisPage",
             columns: [[
-                {field: 'id', title: '图片编号', width: '100'},
-                {field: 'title', title: '图片标题', width: '100'},
-                {field: 'imgPath', title: '图片路径', width: '200'},
+                {field: 'cargoId', title: '货物编号', width: '100'},
+                {field: 'cargoName', title: '货物名称', width: '100'},
+                {field: 'cargoImgpath', title: '货物图片', width: '200'},
+                {field: 'cargoPprice', title: '货物进价', width: '200'},
+                {field: 'cargoSprice', title: '货物售价', width: '100'},
+                {field: 'cargoNumber', title: '货物数量', width: '100'},
                 {
-                    field: 'status', title: '图片状态', width: '100', editor: {
+                    field: 'cargoStatus', title: '货物状态', width: '100', editor: {
                         type: "text",
                         options: {required: true}
                     }, formatter: function (value, rows, index) {
-                        return value == 1 ? "正在使用" : "不在使用";
+                        return value == 1 ? "正在出售" : "不在出售";
                     }
                 },
-                {field: 'pubDate', title: '发布日期', width: '200'},
-                {field: 'description', title: '描述信息', width: '100'}
             ]],
             toolbar: toolbar,
             loadMsg: "正在努力加载中，请稍候...",
@@ -86,14 +87,14 @@
             pageList: [3, 6, 9],
             autoSave: true,
             method: "get",
-            updateUrl: "${pageContext.request.contextPath}/banner/editBanner",
+            updateUrl: "${pageContext.request.contextPath}/cargo/editCargo",
             view: detailview,
             detailFormatter: function (rowIndex, rowData) {
                 return '<table><tr>' +
-                    '<td rowspan="2" style="border:0"><img src="${pageContext.request.contextPath}/' + rowData.imgPath + '" style="height:50px;"></td>' +
+                    '<td rowspan="2" style="border:0"><img src="${pageContext.request.contextPath}/' + rowData.cargoImgpath + '" style="height:50px;"></td>' +
                     '<td style="border:0">' +
-                    '<p>描述：' + rowData.description + '</p>' +
-                    '<p>日期：' + rowData.pubDate + '</p>' +
+                    '<p>描述：' + rowData.cargoDes + '</p>' +
+                    '<p>日期：' + rowData.cargoDate + '</p>' +
                     '</td>' +
                     '</tr></table>';
             }/*,
@@ -111,7 +112,7 @@
         });
         //添加
         $("#addBannerDialog").dialog({
-            title: '添加轮播图',
+            title: '添加货物',
             width: 400,
             height: 260,
             closed: true,
