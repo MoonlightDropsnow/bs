@@ -27,9 +27,6 @@ public class CargoServiceImpl implements CargoService {
         CargoDto cargoDto = new CargoDto();
         PageHelper.startPage(page,rows);
         List<Cargo> cargos = cargoMapper.selectAll();
-        for (Cargo cargo : cargos) {
-            System.out.println(cargo);
-        }
         int total = cargoMapper.selectCount(new Cargo());
         cargoDto.setTotal(total);
         cargoDto.setRows(cargos);

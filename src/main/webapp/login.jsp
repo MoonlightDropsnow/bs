@@ -1,22 +1,15 @@
 <%@page isELIgnored="false" pageEncoding="UTF-8" contentType="text/html; UTF-8" %>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="zh-cn">
+
 <head>
-    <title>持名法州后台管理中心</title>
-
-    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-    <meta http-equiv="description" content="this is my page">
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-
-    <link rel="icon" href="${pageContext.request.contextPath}/img/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css" type="text/css"></link>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css" type="text/css"></link>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/IconExtension.css">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/script/jquery.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/script/common.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>登录</title>
+	
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <script type="text/javascript">
         $(function () {
             //点击更换验证码：
@@ -28,69 +21,46 @@
 </head>
 <body>
 
-<div class="login">
-    <form id="loginForm" action="${pageContext.request.contextPath}/admin/login" method="post">
-
-        <table>
-            <tbody>
-            <tr>
-                <td width="190" rowspan="2" align="center" valign="bottom">
-                    <img src="${pageContext.request.contextPath}/img/header_logo.gif"/>
-                </td>
-                <th>
-                    用户名:
-                </th>
-                <td>
-                    <input type="text" name="name" class="text" maxlength="20"/>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    密&nbsp;&nbsp;&nbsp;码:
-                </th>
-                <td>
-                    <input type="password" name="password" class="text" maxlength="20"
-                           autocomplete="off"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>&nbsp;</td>
-                <th>验证码:</th>
-                <td>
-                    <input type="text" id="enCode" name="enCode" class="text captcha" maxlength="4" autocomplete="off"/>
-                    <img id="captchaImage" class="captchaImage"
-                         src="${pageContext.request.contextPath}/admin/validateCode" title="点击更换验证码"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;
-                </td>
-                <th>
-                    &nbsp;
-                </th>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <th>&nbsp;</th>
-                <td>
-                    <input type="button" class="homeButton"><input type="submit"
-                                                                   class="loginButton"
-                                                                   value="登录">
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="powered">COPYRIGHT © 2008-2018.</div>
-        <div class="link">
-            <a href="http://www.chimingfowang.com/">持名佛网首页</a> |
-            <a href="http://www.chimingbbs.com/">交流论坛</a> |
-            <a href="">关于我们</a> |
-            <a href="">联系我们</a> |
-            <a href="">授权查询</a>
+    <div class="bg"></div>
+    <div class="container">
+        <div class="line bouncein">
+            <div class="xs6 xm4 xs3-move xm4-move">
+                <div style="height:150px;"></div>
+                <div class="media media-y margin-big-bottom">
+                </div>
+                <form id="loginForm" action="${pageContext.request.contextPath}/admin/login" method="post">
+                    <div class="panel loginbox">
+                        <div class="text-center margin-big padding-big-top">
+                            <h1>后台管理中心</h1>
+                        </div>
+                        <div class="panel-body" style="padding:30px; padding-bottom:10px; padding-top:10px;">
+                            <div class="form-group">
+                                <div class="field field-icon-right">
+                                    <input type="text" class="input input-big" name="name" id="username" placeholder="登录账号" />
+                                    <span class="icon icon-user margin-small"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="field field-icon-right">
+                                    <input type="password" class="input input-big" name="password" id="password"  placeholder="登录密码" />
+                                    <span class="icon icon-key margin-small"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="field">
+                                    <input type="text" class="input input-big" id="enCode" name="enCode" maxlength="4" placeholder="填写右侧的验证码" />
+                                    <img src="${pageContext.request.contextPath}/admin/validateCode" alt="" width="100" height="32" class="passcode" style="height:43px;cursor:pointer;" onClick="this.src=this.src+'?'">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding:30px;">
+                            <input type="submit" id="button" class="button button-block bg-main text-big input-big" value="登录">
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-    </form>
-</div>
+    </div>
+
 </body>
 </html>

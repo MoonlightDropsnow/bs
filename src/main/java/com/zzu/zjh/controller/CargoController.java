@@ -41,7 +41,7 @@ public class CargoController {
         cargoService.deleteCargo(id);
     }
 
-    @RequestMapping(value = "addBanner", method = RequestMethod.POST)
+    @RequestMapping(value = "addCargo", method = RequestMethod.POST)
     public void addCargo(Cargo cargo, @RequestParam("file") MultipartFile file) throws IOException {
         File file1 = new File(System.getProperty("user.dir") + "/src/main/webapp/images/cargos/" + file.getOriginalFilename());
         //System.out.println(file1);
