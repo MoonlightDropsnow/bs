@@ -11,12 +11,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <script type="text/javascript">
-        $(function () {
+        /*$(function () {
             //点击更换验证码：
             $("#captchaImage").live("click", function () {
                 $("#captchaImage").prop("src", "${pageContext.request.contextPath}/admin/validateCode?time=" + new Date());
             });
-        });
+        });*/
     </script>
 </head>
 <body>

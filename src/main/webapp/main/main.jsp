@@ -12,10 +12,15 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/datagrid-detailview.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.edatagrid.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
-
+    <!-- Echarts -->
+    <script src="../js/echarts.min.js"></script>
+    <script src="../js/china.js"></script>
+    <script type="text/javascript" src="https://cdn-hangzhou.goeasy.io/goeasy.js"></script>
 </head>
 <script type="text/javascript">
-
+    var goEasy = new GoEasy({
+        appkey:"BC-0e7e8c1d21b94a9b83a985ee2d60e8e0"
+    });
     <!--菜单处理-->
     $(function () {
         //退出
