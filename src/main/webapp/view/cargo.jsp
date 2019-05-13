@@ -25,13 +25,13 @@
             text: "删除",
             iconCls: 'icon-remove',
             handler: function () {
-               ///获取选中行
+                ///获取选中行
                 var row = $("#cargoDatagrid").edatagrid("getSelected");
                 if (row != null) {
                     if (confirm("确定删除？")) {
                         $.get(
                             "${pageContext.request.contextPath}/cargo/removeCargo",
-                            {id: row.id},
+                            {id:row.cargoId},
                             function () {
                                 $("#cargoDatagrid").edatagrid("reload");
                                 $.messager.show({
@@ -52,7 +52,14 @@
                 $("#cargoDatagrid").edatagrid("saveRow");
                 $("#cargoDatagrid").edatagrid("reload");
             }
-        }]
+        }, '-', {
+            text: "导出数据",
+            iconCls: 'icon-redo',
+            handler: function () {
+                window.location.href = "${pageContext.request.contextPath}/cargo/exportCargo";
+            }
+        }
+        ]
         $("#cargoDatagrid").edatagrid({
             title: "货物",
             fitColumns: true,
@@ -75,8 +82,8 @@
             toolbar: toolbar,
             loadMsg: "正在努力加载中，请稍候...",
             pagination: true,
-            pageSize: 3,
-            pageList: [3, 6, 9],
+            pageSize: 5,
+            pageList: [5, 10, 15],
             autoSave: true,
             method: "get",
             updateUrl: "${pageContext.request.contextPath}/cargo/editCargo",
@@ -103,6 +110,9 @@
         });
 
     })
+    function checknum(obj){
+        if(!/^\d*(\.\d{1,2})?$/.test(obj.value)) alert("请输入正确的价钱（两位小数点）!");
+    }
 </script>
 
 

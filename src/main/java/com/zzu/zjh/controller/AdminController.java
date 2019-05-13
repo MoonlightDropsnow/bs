@@ -1,12 +1,15 @@
 package com.zzu.zjh.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.zzu.zjh.entity.Admin;
+import com.zzu.zjh.entity.AdminDto;
 import com.zzu.zjh.service.AdminService;
 import com.zzu.zjh.util.ValidateImageCodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -20,6 +23,12 @@ import java.io.IOException;
 public class AdminController {
     @Autowired
     private AdminService adminService;
+
+    @ResponseBody
+    @RequestMapping("allAdminsThisPage")
+    public AdminDto allAdmins(Integer page, Integer rows) {
+        return adminService.getAllAdmins(page, rows);
+    }
 
     @RequestMapping("login")
     public String login(Admin admin, Model model, String enCode, HttpSession session) {
@@ -35,13 +44,14 @@ public class AdminController {
                 model.addAttribute("error", "密码错误");
                 return "login";
             }
-            session.setAttribute("admin",admin);
+            session.setAttribute("admin", admin);
             return "main/main";
             //
         }
     }
+
     @RequestMapping("quit")
-    public String quit(HttpSession session){
+    public String quit(HttpSession session) {
         session.invalidate();
         return "login";
     }

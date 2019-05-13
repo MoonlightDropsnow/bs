@@ -23,9 +23,6 @@
                 $("#cargoDatagrid").edatagrid("reload");
             }
         });
-        function checknum(obj){
-            if(!/^\d*(\.\d{1,2})?$/.test(obj.value)) alert("错误：必须为数值!");
-        }
     })
 </script>
     <form id="cargoForm" enctype="multipart/form-data" method="post">

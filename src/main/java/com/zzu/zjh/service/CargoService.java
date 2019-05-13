@@ -8,7 +8,7 @@ import java.util.List;
 public interface CargoService {
     public List<Cargo> getAllCargos();
     public CargoDto getCargosByPage(int page, int rows);
-    public void changeCargo(Cargo banner);
+    public void changeCargo(Cargo cargo);
     public void deleteCargo(Integer id);
-    public void increaseCargo(Cargo banner);
+    public void increaseCargo(Cargo cargo);
 }
