@@ -1,7 +1,7 @@
 server:
   port: 8695
   servlet:
-    context-path: /
+    context-path: /wm
 spring:
   mvc:
     view:

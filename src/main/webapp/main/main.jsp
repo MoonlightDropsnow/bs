@@ -23,7 +23,6 @@
     });
     <!--菜单处理-->
     $(function () {
-        //退出
         $.ajax({
             url: "${pageContext.request.contextPath}/menu/allMenus",
             type: "post",
@@ -74,7 +73,7 @@
         货物管理系统
     </div>
     <div style="font-size: 16px;color: #FFFFFF;font-family: 楷体;width: 300px;float:right;padding-top:15px">
-        欢迎您:<!-- $ {sessionScope.admin.name}-->
+        欢迎您:${sessionScope.admin.name}
         &nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-back',onClick:function(){location.href='${pageContext.request.contextPath}/admin/quit';}">退出系统</a>
         &nbsp;&nbsp;<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-help'">帮助</a>
     </div>

@@ -1,29 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<div id="manufacturerBar" style="width: 100%;height:100%;"></div>
+<div id="profitBar" style="width: 100%;height:100%;"></div>
 <script type="text/javascript">
     $(function () {
         //柱状图
         // 基于准备好的dom，初始化echarts实例
-        var manufacturerBarChart = echarts.init(document.getElementById('manufacturerBar'));
+        var profitBarChart = echarts.init(document.getElementById('profitBar'));
         var barOption = {
             title: {
-                text: '厂家进货次数',
-                subtext: '厂家分段'
+                text: '货物数量',
+                subtext: '数量分段'
             },
             tooltip: {},
             legend: {
                 type: "scroll",
-                data: ['进货次数']
+                data: ['货物数量']
             },
             xAxis: {
                 data: []
             },
             yAxis: {}
         }
-        manufacturerBarChart.setOption(barOption);
+        profitBarChart.setOption(barOption);
         $.ajax({
             type: "get",
-            url: "${pageContext.request.contextPath}/manufacturer/allManufacturerNumbers",
+            url: "${pageContext.request.contextPath}/cargo/allCargoNumbers",
             dataType: "json",
             success: function (result) {
                 //console.log(result);
@@ -33,10 +33,10 @@
                     y.push(i);
                     x.push(result[i]);
                 }
-                manufacturerBarChart.setOption({
+                profitBarChart.setOption({
                     series: [{
                         // 根据名字对应到相应的系列
-                        name: '合作次数',
+                        name: '货物数量',
                         data: x,
                         type: "bar"
                     }],
@@ -56,10 +56,10 @@
                     y.push(i);
                     x.push(r[i]);
                 }
-                manufacturerBarChart.setOption({
+                profitBar.setOption({
                     series: [{
                         // 根据名字对应到相应的系列
-                        name: '合作次数',
+                        name: '货物数量',
                         data: x,
                         type: "bar"
                     }],

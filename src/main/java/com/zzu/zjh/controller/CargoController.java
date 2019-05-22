@@ -2,9 +2,11 @@ package com.zzu.zjh.controller;
 
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
+import com.alibaba.fastjson.JSON;
 import com.zzu.zjh.entity.Cargo;
 import com.zzu.zjh.entity.CargoDto;
 import com.zzu.zjh.service.CargoService;
+import io.goeasy.GoEasy;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("cargo")
@@ -82,5 +85,15 @@ public class CargoController {
         }
 
 
+    }
+    @RequestMapping("allCargoNumbers")
+    public Map<String, Integer> allCargoNumbers(){
+        List<Cargo> cargos = cargoService.getAllCargos();
+        return cargoService.dataOfCargo(cargos);}
+    @RequestMapping("allCargoNumbers2")
+    public void allCargoNumbersGo(){
+        List<Cargo> cargos = cargoService.getAllCargos();
+        GoEasy goEasy = new GoEasy("http://rest-hangzhou.goeasy.io", "BC-0e7e8c1d21b94a9b83a985ee2d60e8e0");
+        goEasy.publish("goeasy", JSON.toJSONString(cargoService.dataOfCargo(cargos)) );
     }
 }

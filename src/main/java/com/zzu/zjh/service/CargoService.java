@@ -3,12 +3,21 @@ package com.zzu.zjh.service;
 import com.zzu.zjh.entity.Cargo;
 import com.zzu.zjh.entity.CargoDto;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface CargoService {
-    public List<Cargo> getAllCargos();
-    public CargoDto getCargosByPage(int page, int rows);
-    public void changeCargo(Cargo cargo);
-    public void deleteCargo(Integer id);
-    public void increaseCargo(Cargo cargo);
+    List<Cargo> getAllCargos();
+
+    CargoDto getCargosByPage(int page, int rows);
+
+    void changeCargo(Cargo cargo);
+
+    void deleteCargo(Integer id);
+
+    void increaseCargo(Cargo cargo);
+
+    Map<String, Integer> dataOfCargo(List<Cargo> cargos);
+
 }

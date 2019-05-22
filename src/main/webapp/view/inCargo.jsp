@@ -8,6 +8,44 @@
                 $("#inOperationDialog").dialog("open");
             }
         }, '-', {
+            text: "修改",
+            iconCls: 'icon-edit',
+            handler: function () {
+                //获取选中行
+                var row = $("#operationOutDatagrid").edatagrid("getSelected");
+                if (row != null) {
+                    //编辑指定行
+                    var index = $("#operationOutDatagrid").edatagrid("getRowIndex", row);
+                    $("#operationOutDatagrid").edatagrid("editRow", index);
+                } else {
+                    alert("请先选中行")
+                }
+            }
+        }, '-', {
+            text: "删除",
+            iconCls: 'icon-remove',
+            handler: function () {
+                ///获取选中行
+                var row = $("#operationOutDatagrid").edatagrid("getSelected");
+                if (row != null) {
+                    if (confirm("确定删除？")) {
+                        $.get(
+                            "${pageContext.request.contextPath}/cargo/removeCargo",
+                            {id: row.id},
+                            function () {
+                                $("#operationOutDatagrid").edatagrid("reload");
+                                $.messager.show({
+                                    title: "提示信息",
+                                    msg: "删除成功"
+                                });
+                            }
+                        );
+                    }
+                } else {
+                    alert("请先选中行")
+                }
+            }
+        }, '-', {
             text: "查看详情",
             iconCls: 'icon-edit',
             handler: function () {
@@ -20,6 +58,12 @@
                 } else {
                     alert("请先选中行")
                 }
+            }
+        },'-', {
+            text: "导出数据",
+            iconCls: 'icon-redo',
+            handler: function () {
+                window.location.href = "${pageContext.request.contextPath}/cargo/exportCargo";
             }
         }]
         $("#operationDatagrid").edatagrid({
@@ -36,8 +80,8 @@
             toolbar: toolbar,
             loadMsg: "正在努力加载中，请稍候...",
             pagination: true,
-            pageSize: 3,
-            pageList: [3, 6, 9],
+            pageSize: 5,
+            pageList: [5, 10, 15],
             autoSave: true,
             method: "get",
             updateUrl: "${pageContext.request.contextPath}/cargo/editCargo",

@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript">
     $(function () {
+
         $("#inCargoBtn").linkbutton({
             text: "确认添加",
             iconCls: "icon-add",
@@ -12,16 +13,21 @@
         $("#inOperationForm").form({
             url: "${pageContext.request.contextPath}/operation/addOperation",
             onSubmit: function () {
-                return true;
+                return $(this).form('validate');
             },
-            success: function () {
-                $("#inOperationDialog").dialog("close");
-                $.messager.show({
-                    title: "提醒",
-                    msg: "入库成功"
-                });
-                $("#operationDatagrid").edatagrid("reload");
-                $("#cargoDatagrid").edatagrid("reload");
+            success: function (data) {
+                if(data!="ok"){
+                    $("#inOperationDialog").dialog("close");
+                    alert(data);
+                }else{
+                    $("#inOperationDialog").dialog("close");
+                    $.messager.show({
+                        title: "提醒",
+                        msg: "入库成功"
+                    });
+                    $("#operationDatagrid").edatagrid("reload");
+                    $("#cargoDatagrid").edatagrid("reload");
+                }
             }
         });
     })
@@ -30,15 +36,15 @@
     <table align="center">
         <tr>
             <td>货物名称：</td>
-            <td><input type="text" name="cargoName"></td>
+            <td><input type="text" class="easyui-validatebox" required="true" name="cargoName"></td>
         </tr>
         <tr>
             <td>入库数量：</td>
-            <td><input type="text" name="inNumber"></td>
+            <td><input type="text" class="easyui-validatebox" required="true" name="inNumber"></td>
         </tr>
         <tr>
             <td>进货厂家：</td>
-            <td><input type="text" name="manufacturerName"></td>
+            <td><input type="text" class="easyui-validatebox" required="true" name="manufacturerName"></td>
         </tr>
     </table>
     <p align="center">

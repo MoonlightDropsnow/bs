@@ -26,11 +26,6 @@ public class OperationServiceImpl implements OperationService {
     ManufacturerMapper manufacturerMapper;
 
     @Override
-    public List<Operation> getAllOperation() {
-        return operationMapper.selectAll();
-    }
-
-    @Override
     public OperationDto getInOperationsByPage(int page, int rows) {
         return getOperationDtoByType(page, rows, 1);
     }
@@ -58,27 +53,38 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    public void increaseOperation(Operation operation) {
+    public String increaseOperation(Operation operation) {
         Cargo cargo = new Cargo();
         cargo.setCargoName(operation.getCargoName());
         cargo = cargoMapper.selectOne(cargo);
-        //manufacturer
-        Manufacturer manufacturer = new Manufacturer();
-        manufacturer.setManufacturerName(operation.getManufacturerName());
-        if (operation.getManufacturerName() != null) {
-            manufacturer = manufacturerMapper.selectOne(manufacturer);
-        }
-        if (operation.getOutNumber() == null) {
-            operation.setOutNumber(0);
-            cargo.setCargoNumber(cargo.getCargoNumber() + operation.getInNumber());
-            manufacturer.setCooperationTimes(manufacturer.getCooperationTimes() + 1);
-            manufacturerMapper.updateByPrimaryKeySelective(manufacturer);
+        if (cargo == null) {
+            return "货物不存在，请先添加货物";
         } else {
-            operation.setInNumber(0);
-            cargo.setCargoNumber(cargo.getCargoNumber() - operation.getOutNumber());
+            //manufacturer
+            Manufacturer manufacturer = new Manufacturer();
+            manufacturer.setManufacturerName(operation.getManufacturerName());
+            if (operation.getManufacturerName() != null) {
+                manufacturer = manufacturerMapper.selectOne(manufacturer);
+                if(manufacturer==null){
+                    return "厂家不存在，请先添加厂家";
+                }
+            }
+            if (operation.getOutNumber() == null) {
+                operation.setOutNumber(0);
+                cargo.setCargoNumber(cargo.getCargoNumber() + operation.getInNumber());
+                manufacturer.setCooperationTimes(manufacturer.getCooperationTimes() + 1);
+                manufacturerMapper.updateByPrimaryKeySelective(manufacturer);
+            } else {
+                if (cargo.getCargoNumber() < operation.getOutNumber()) {
+                    return "货物数量不足";
+                }
+                operation.setInNumber(0);
+                cargo.setCargoNumber(cargo.getCargoNumber() - operation.getOutNumber());
+            }
+            cargoMapper.updateByPrimaryKeySelective(cargo);
+            operation.setOperationTime(new Date());
+            operationMapper.insert(operation);
         }
-        cargoMapper.updateByPrimaryKeySelective(cargo);
-        operation.setOperationTime(new Date());
-        operationMapper.insert(operation);
+        return "ok";
     }
 }

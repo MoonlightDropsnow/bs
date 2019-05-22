@@ -52,7 +52,27 @@
                 $("#operationOutDatagrid").edatagrid("saveRow");
                 $("#operationOutDatagrid").edatagrid("reload");
             }
-        }*/]
+        }*/ '-', {
+            text: "查看详情",
+            iconCls: 'icon-edit',
+            handler: function () {
+                //获取选中行
+                var row = $("#operationDatagrid").edatagrid("getSelected");
+                if (row != null) {
+                    //编辑指定行
+                    var index = $("#operationDatagrid").edatagrid("getRowIndex", row);
+                    $("#operationDatagrid").edatagrid("editRow", index);
+                } else {
+                    alert("请先选中行")
+                }
+            }
+        },'-', {
+            text: "导出数据",
+            iconCls: 'icon-redo',
+            handler: function () {
+                window.location.href = "${pageContext.request.contextPath}/cargo/exportCargo";
+            }
+        }]
         $("#operationOutDatagrid").edatagrid({
             title: "货物",
             fitColumns: true,
@@ -67,8 +87,8 @@
             toolbar: toolbar,
             loadMsg: "正在努力加载中，请稍候...",
             pagination: true,
-            pageSize: 3,
-            pageList: [3, 6, 9],
+            pageSize: 5,
+            pageList: [5, 10, 15],
             autoSave: true,
             method: "get",
             updateUrl: "${pageContext.request.contextPath}/cargo/editCargo",

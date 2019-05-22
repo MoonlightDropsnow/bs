@@ -5,18 +5,18 @@
             iconCls: 'icon-add',
             text: "添加",
             handler: function () {
-                $("#addCargoDialog").dialog("open");
+                $("#addManufacturerDialog").dialog("open");
             }
         }, '-', {
             text: "修改",
             iconCls: 'icon-edit',
             handler: function () {
                 //获取选中行
-                var row = $("#cargoDatagrid").edatagrid("getSelected");
+                var row = $("#manufacturerDatagrid").edatagrid("getSelected");
                 if (row != null) {
                     //编辑指定行
-                    var index = $("#cargoDatagrid").edatagrid("getRowIndex", row);
-                    $("#cargoDatagrid").edatagrid("editRow", index);
+                    var index = $("#manufacturerDatagrid").edatagrid("getRowIndex", row);
+                    $("#manufacturerDatagrid").edatagrid("editRow", index);
                 } else {
                     alert("请先选中行")
                 }
@@ -26,14 +26,14 @@
             iconCls: 'icon-remove',
             handler: function () {
                 ///获取选中行
-                var row = $("#cargoDatagrid").edatagrid("getSelected");
+                var row = $("#manufacturerDatagrid").edatagrid("getSelected");
                 if (row != null) {
                     if (confirm("确定删除？")) {
                         $.get(
                             "${pageContext.request.contextPath}/cargo/removeCargo",
-                            {id:row.cargoId},
+                            {id: row.cargoId},
                             function () {
-                                $("#cargoDatagrid").edatagrid("reload");
+                                $("#manufacturerDatagrid").edatagrid("reload");
                                 $.messager.show({
                                     title: "提示信息",
                                     msg: "删除成功"
@@ -49,8 +49,8 @@
             text: "保存",
             iconCls: 'icon-save',
             handler: function () {
-                $("#cargoDatagrid").edatagrid("saveRow");
-                $("#cargoDatagrid").edatagrid("reload");
+                $("#manufacturerDatagrid").edatagrid("saveRow");
+                $("#manufacturerDatagrid").edatagrid("reload");
             }
         }, '-', {
             text: "导出数据",
@@ -60,24 +60,17 @@
             }
         }
         ]
-        $("#cargoDatagrid").edatagrid({
-            title: "货物",
+        $("#manufacturerDatagrid").edatagrid({
+            title: "厂家",
             fitColumns: true,
-            url: "${pageContext.request.contextPath}/cargo/allCargosThisPage",
+            url: "${pageContext.request.contextPath}/manufacturer/allManufacturersThisPage",
             columns: [[
-                {field: 'cargoId', title: '货物编号', width: '100'},
-                {field: 'cargoName', title: '货物名称', width: '100'},
-                {field: 'cargoPprice', title: '货物进价', width: '200'},
-                {field: 'cargoSprice', title: '货物售价', width: '100'},
-                {field: 'cargoNumber', title: '货物数量', width: '100'},
-                {
-                    field: 'cargoStatus', title: '货物状态', width: '100', editor: {
-                        type: "text",
-                        options: {required: true}
-                    }, formatter: function (value, rows, index) {
-                        return value == 1 ? "货物充足" : "货物不足";
-                    }
-                },
+                {field: 'manufacturerId', title: '厂家编号', width: '100'},
+                {field: 'manufacturerName', title: '厂家名称', width: '100'},
+                {field: 'manufacturerPhone', title: '联系方式', width: '200'},
+                {field: 'manufacturerAddress', title: '厂家地址', width: '100'},
+                {field: 'cooperationTimes', title: '进货次数', width: '100'},
+
             ]],
             toolbar: toolbar,
             loadMsg: "正在努力加载中，请稍候...",
@@ -87,20 +80,11 @@
             autoSave: true,
             method: "get",
             updateUrl: "${pageContext.request.contextPath}/cargo/editCargo",
-            view: detailview,
-            detailFormatter: function (rowIndex, rowData) {
-                return '<table><tr>' +
-                    '<td rowspan="2" style="border:0"><img src="${pageContext.request.contextPath}/' + rowData.cargoImgpath + '" style="height:50px;"></td>' +
-                    '<td style="border:0">' +
-                    '<p>描述：' + rowData.cargoDes + '</p>' +
-                    '<p>日期：' + rowData.cargoDate + '</p>' +
-                    '</td>' +
-                    '</tr></table>';
-            }
+
         });
         //添加
-        $("#addCargoDialog").dialog({
-            title: '添加货物',
+        $("#addManufacturerDialog").dialog({
+            title: '添加厂家',
             width: 400,
             height: 260,
             closed: true,
@@ -110,16 +94,13 @@
         });
 
     })
-    function checknum(obj){
-        if(!/^\d*(\.\d{1,2})?$/.test(obj.value)) alert("请输入正确的价钱（两位小数点）!");
-    }
 </script>
 
 
 <div>
-    <table id="cargoDatagrid">
+    <table id="manufacturerDatagrid">
 
     </table>
 </div>
-<div id="addCargoDialog" align="center">
+<div id="addManufacturerDialog" align="center">
 </div>

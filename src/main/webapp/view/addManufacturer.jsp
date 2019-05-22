@@ -34,6 +34,6 @@
             <tr><td>描述信息：</td><td><textarea class="easyui-validatebox" required="true" name="cargoDes" cols="23" rows="5" placeholder="输入货物的描述信息"></textarea></td></tr>
         </table>
         <p align="center">
-        <a id="addCargoBtn"></a>
+        <a id="addManufacturerBtn"></a>
         </p>
     </form>

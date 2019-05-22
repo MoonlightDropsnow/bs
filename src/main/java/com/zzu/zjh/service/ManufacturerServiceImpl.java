@@ -1,6 +1,8 @@
 package com.zzu.zjh.service;
 
+import com.github.pagehelper.PageHelper;
 import com.zzu.zjh.entity.Manufacturer;
+import com.zzu.zjh.entity.ManufacturerDto;
 import com.zzu.zjh.entity.ManufacturerMsg;
 import com.zzu.zjh.mapper.AdminMapper;
 import com.zzu.zjh.mapper.ManufacturerMapper;
@@ -50,5 +52,16 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     @Override
     public List<Manufacturer> queryAllManufacturers() {
         return manufacturerMapper.selectAll();
+    }
+
+    @Override
+    public ManufacturerDto getManufacturersByPage(int page, int rows) {
+        ManufacturerDto manufacturerDto = new ManufacturerDto();
+        PageHelper.startPage(page,rows);
+        List<Manufacturer> manufacturers = manufacturerMapper.selectAll();
+        int total = manufacturerMapper.selectCount(new Manufacturer());
+        manufacturerDto.setTotal(total);
+        manufacturerDto.setRows(manufacturers);
+        return manufacturerDto;
     }
 }

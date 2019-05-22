@@ -21,8 +21,8 @@ public class OperationController {
         return operationService.getOutOperationsByPage(page,rows);
     }
     @RequestMapping("addOperation")
-    public void increaseOperation(Operation operation){
-        operationService.increaseOperation(operation);
+    public String increaseOperation(Operation operation){
+        return operationService.increaseOperation(operation);
     }
 
 }

@@ -12,16 +12,21 @@
         $("#outOperationForm").form({
             url: "${pageContext.request.contextPath}/operation/addOperation",
             onSubmit: function () {
-                return true;
+                return $(this).form('validate');
             },
-            success: function () {
-                $("#outOperationDialog").dialog("close");
-                $.messager.show({
-                    title: "提醒",
-                    msg: "出库成功"
-                });
-                $("#operationOutDatagrid").edatagrid("reload");
-                $("#cargoDatagrid").edatagrid("reload");
+            success: function (data) {
+                if (data!="ok") {
+                    $("#outOperationDialog").dialog("close");
+                    alert(data);
+                } else {
+                    $("#outOperationDialog").dialog("close");
+                    $.messager.show({
+                        title: "提醒",
+                        msg: "出库成功"
+                    });
+                    $("#operationOutDatagrid").edatagrid("reload");
+                    $("#cargoDatagrid").edatagrid("reload");
+                }
             }
         });
     })
@@ -30,11 +35,11 @@
     <table align="center">
         <tr>
             <td>货物名称：</td>
-            <td><input type="text" name="cargoName"></td>
+            <td><input type="text" class="easyui-validatebox" required="true" name="cargoName"></td>
         </tr>
         <tr>
             <td>出库数量：</td>
-            <td><input type="text" name="outNumber"></td>
+            <td><input type="text" class="easyui-validatebox" required="true" name="outNumber"></td>
         </tr>
     </table>
     <p align="center">

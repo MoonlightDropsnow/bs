@@ -15,5 +15,8 @@ public class Admin implements Serializable {
     @Id
     private Integer id;
     private String name;
+    private String truePassword;
     private String password;
+    private String salt;
+    private String duty;
 }

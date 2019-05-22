@@ -5,7 +5,7 @@
             iconCls: 'icon-add',
             text: "添加",
             handler: function () {
-                $("#addCargoDialog").dialog("open");
+                $("#addAdminDialog").dialog("open");
             }
         }, '-', {
             text: "修改",
@@ -30,14 +30,14 @@
                 if (row != null) {
                     if (confirm("确定删除？")) {
                         $.get(
-                            "${pageContext.request.contextPath}/cargo/removeCargo",
+                            "${pageContext.request.contextPath}/admin/removeAdmin",
                             {id: row.id},
                             function () {
-                                $("#adminDatagrid").edatagrid("reload");
                                 $.messager.show({
                                     title: "提示信息",
                                     msg: "删除成功"
                                 });
+                                $("#adminDatagrid").edatagrid("reload");
                             }
                         );
                     }
@@ -54,13 +54,17 @@
             }
         }]
         $("#adminDatagrid").edatagrid({
-            title: "货物",
+            title: "账号",
             fitColumns: true,
             url: "${pageContext.request.contextPath}/admin/allAdminsThisPage",
             columns: [[
                 {field: 'id', title: '账户编号', width: '100'},
                 {field: 'name', title: '账户名称', width: '100'},
-                {field: 'password', title: '账户密码', width: '200'},
+                {field: 'truePassword', title: '账户密码', width: '200', editor: {
+                        type: "text",
+                        options: {required: true}
+                    }},
+                {field: 'duty', title: '账户级别', width: '200'},
 
             ]],
             toolbar: toolbar,
@@ -70,17 +74,17 @@
             pageList: [3, 6, 9],
             autoSave: true,
             method: "get",
-            updateUrl: "${pageContext.request.contextPath}/cargo/editCargo",
+            updateUrl: "${pageContext.request.contextPath}/admin/editAdmin",
 
         });
         //添加
-        $("#addCargoDialog").dialog({
-            title: '添加货物',
+        $("#addAdminDialog").dialog({
+            title: '添加用户',
             width: 400,
             height: 260,
             closed: true,
             cache: false,
-            href: '${pageContext.request.contextPath}/view/addCargo.jsp',
+            href: '${pageContext.request.contextPath}/view/addAdmin.jsp',
             modal: true
         });
 
@@ -93,5 +97,5 @@
 
     </table>
 </div>
-<div id="addCargoDialog" align="center">
+<div id="addAdminDialog" align="center">
 </div>

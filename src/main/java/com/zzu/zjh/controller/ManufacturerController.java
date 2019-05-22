@@ -2,6 +2,7 @@ package com.zzu.zjh.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.zzu.zjh.entity.Manufacturer;
+import com.zzu.zjh.entity.ManufacturerDto;
 import com.zzu.zjh.entity.ManufacturerMsg;
 import com.zzu.zjh.service.ManufacturerService;
 import io.goeasy.GoEasy;
@@ -24,7 +25,7 @@ public class ManufacturerController {
         return manufacturerService.allManufacturersForMap();
     }
     @RequestMapping("allManufacturerNumbers")
-    public Map<String, Integer> allUserNumbers(){
+    public Map<String, Integer> allManufacturerNumbers(){
         List<Manufacturer> manufacturers = manufacturerService.queryAllManufacturers();
         return manufacturerService.dataOfManufacturer(manufacturers);}
     @RequestMapping("allManufacturerNumbers2")
@@ -37,4 +38,9 @@ public class ManufacturerController {
     public void importUser(MultipartFile file){
         manufacturerService.importManufacturer(file);
     }
+    @RequestMapping("allManufacturersThisPage")
+    public ManufacturerDto allManufacturersThisPage(Integer page, Integer rows) {
+        return manufacturerService.getManufacturersByPage(page, rows);
+    }
+
 }

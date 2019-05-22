@@ -1,6 +1,5 @@
 package com.zzu.zjh.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.zzu.zjh.entity.Admin;
 import com.zzu.zjh.entity.AdminDto;
 import com.zzu.zjh.service.AdminService;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
@@ -30,30 +30,32 @@ public class AdminController {
         return adminService.getAllAdmins(page, rows);
     }
 
+    @ResponseBody
     @RequestMapping("login")
-    public String login(Admin admin, Model model, String enCode, HttpSession session) {
+    public String login(Admin admin,Model model, String enCode, HttpSession session) {
         if (!session.getAttribute("code").equals(enCode)) {
-            model.addAttribute("error", "验证码错误");
-            return "login";
+            return "验证码错误";
         } else {
-            Admin admin1 = adminService.getOne(admin);
-            if (admin1 == null) {
-                model.addAttribute("error", "用户不存在");
-                return "login";
-            } else if (!admin1.getPassword().equals(admin.getPassword())) {
-                model.addAttribute("error", "密码错误");
-                return "login";
+            Admin admin1 = new Admin();
+            admin1.setName(admin.getName());
+            Admin admin2 = adminService.getOne(admin1);
+            if (admin2 == null) {
+                return "用户不存在";
             }
-            session.setAttribute("admin", admin);
-            return "main/main";
-            //
+            try {
+                adminService.login(admin.getName(), admin.getPassword());
+                session.setAttribute("admin", admin);
+                return "ok";
+            } catch (RuntimeException e) {
+                return "密码错误";
+            }
         }
     }
 
     @RequestMapping("quit")
     public String quit(HttpSession session) {
-        session.invalidate();
-        return "login";
+        session.removeAttribute("admin");
+        return "redirect:/login.jsp";
     }
 
     @RequestMapping("validateCode")
@@ -74,5 +76,20 @@ public class AdminController {
                 e.printStackTrace();
             }
         }
+    }
+
+    @RequestMapping("editAdmin")
+    public void editAdmin(Admin admin) {
+        adminService.changeAdmin(admin);
+    }
+
+    @RequestMapping("removeAdmin")
+    public void removeAdmin(Integer id) {
+        adminService.deleteAdmin(id);
+    }
+
+    @RequestMapping(value = "addAdmin", method = RequestMethod.POST)
+    public void addAdmin(Admin admin) {
+        adminService.increaseAdmin(admin);
     }
 }
