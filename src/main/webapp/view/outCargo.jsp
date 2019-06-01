@@ -45,26 +45,12 @@
                     alert("请先选中行")
                 }
             }
-        }, /*'-', {
+        }, '-', {
             text: "保存",
             iconCls: 'icon-save',
             handler: function () {
                 $("#operationOutDatagrid").edatagrid("saveRow");
                 $("#operationOutDatagrid").edatagrid("reload");
-            }
-        }*/ '-', {
-            text: "查看详情",
-            iconCls: 'icon-edit',
-            handler: function () {
-                //获取选中行
-                var row = $("#operationDatagrid").edatagrid("getSelected");
-                if (row != null) {
-                    //编辑指定行
-                    var index = $("#operationDatagrid").edatagrid("getRowIndex", row);
-                    $("#operationDatagrid").edatagrid("editRow", index);
-                } else {
-                    alert("请先选中行")
-                }
             }
         },'-', {
             text: "导出数据",
@@ -80,7 +66,12 @@
             columns: [[
                 {field: 'operationId', title: '货物编号', width: '100'},
                 {field: 'cargoName', title: '货物名称', width: '100'},
-                {field: 'outNumber', title: '出货数量', width: '200'},
+                {
+                    field: 'outNumber', title: '出货数量（件）', width: '200', editor: {
+                        type: "text",
+                        options: {required: true}
+                    }
+                },
                 {field: 'operationTime', title: '操作时间', width: '100'},
 
             ]],

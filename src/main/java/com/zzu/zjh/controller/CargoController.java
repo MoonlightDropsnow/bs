@@ -69,10 +69,10 @@ public class CargoController {
     public void exportAlbum(HttpServletResponse response) {
         List<Cargo> cargos = cargoService.getAllCargos();
         for (Cargo cargo : cargos) {
-            String realPath = env.getProperty("file.real.path");
-            System.out.println(realPath);
-            cargo.setCargoImgpath(realPath + File.separatorChar + cargo.getCargoImgpath());
-            System.out.println(cargo.getCargoImgpath());
+            //String realPath = env.getProperty("file.real.path");
+            String realPath = System.getProperty("user.dir");
+            cargo.setCargoImgpath(realPath +"/src/main/webapp"+ File.separatorChar + cargo.getCargoImgpath());
+            //System.out.println(cargo.getCargoImgpath());
         }
         Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("货物", "货物"), Cargo.class, cargos);
         try {

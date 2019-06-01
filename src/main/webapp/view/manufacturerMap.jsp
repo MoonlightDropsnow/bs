@@ -4,7 +4,7 @@
     var manufacturerMapChart = echarts.init(document.getElementById('manufacturerMap'));
     option = {
         title: {
-            text: '厂家数量分布图',
+            text: '厂家位置分布图',
             subtext: '地区分布',
             left: 'center'
         },

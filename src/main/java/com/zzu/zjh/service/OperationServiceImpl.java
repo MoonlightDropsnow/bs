@@ -82,6 +82,12 @@ public class OperationServiceImpl implements OperationService {
                 cargo.setCargoNumber(cargo.getCargoNumber() - operation.getOutNumber());
             }
             cargoMapper.updateByPrimaryKeySelective(cargo);
+            if(cargo.getCargoNumber()<=50){
+                cargo.setCargoStatus(0);
+            }else{
+                cargo.setCargoStatus(1);
+            }
+            cargoMapper.updateByPrimaryKeySelective(cargo);
             operation.setOperationTime(new Date());
             operationMapper.insert(operation);
         }

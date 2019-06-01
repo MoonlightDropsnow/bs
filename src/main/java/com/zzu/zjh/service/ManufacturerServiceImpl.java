@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,34 +22,21 @@ import java.util.Map;
 public class ManufacturerServiceImpl implements ManufacturerService {
     @Autowired
     private ManufacturerMapper manufacturerMapper;
+
     @Override
     public List<ManufacturerMsg> allManufacturersForMap() {
         return manufacturerMapper.queryAllGroupByCity();
     }
 
     @Override
-    public Map<String,Integer> dataOfManufacturer(List<Manufacturer> manufacturers) {
-        Map<String,Integer> manufacturerData = new HashMap();
-        for(Manufacturer manufacturer:manufacturers){
+    public Map<String, Integer> dataOfManufacturer(List<Manufacturer> manufacturers) {
+        Map<String, Integer> manufacturerData = new HashMap();
+        for (Manufacturer manufacturer : manufacturers) {
             Integer number = manufacturerMapper.queryManufacturerNumberByTimeInterval(manufacturer.getManufacturerName());
-            manufacturerData.put(manufacturer.getManufacturerName(),number);
+            manufacturerData.put(manufacturer.getManufacturerName(), number);
         }
         return manufacturerData;
     }
-
-    @Override
-    public void importManufacturer(MultipartFile file) {
-        List<Manufacturer> manufacturers = FileUtil.importExcel(file,1,1,Manufacturer.class);
-        for (Manufacturer manufacturer : manufacturers) {
-            System.out.println(manufacturer);
-            /*String headPic = manufacturer.getHead_pic();
-            int i = headPic.lastIndexOf("/");
-            String s = headPic.substring(i+1,headPic.length());
-            user.setHead_pic(s);*/
-        }
-        manufacturerMapper.insertBatch(manufacturers);
-    }
-
     @Override
     public List<Manufacturer> queryAllManufacturers() {
         return manufacturerMapper.selectAll();
@@ -57,11 +45,28 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     @Override
     public ManufacturerDto getManufacturersByPage(int page, int rows) {
         ManufacturerDto manufacturerDto = new ManufacturerDto();
-        PageHelper.startPage(page,rows);
+        PageHelper.startPage(page, rows);
         List<Manufacturer> manufacturers = manufacturerMapper.selectAll();
         int total = manufacturerMapper.selectCount(new Manufacturer());
         manufacturerDto.setTotal(total);
         manufacturerDto.setRows(manufacturers);
         return manufacturerDto;
+    }
+
+    @Override
+    public void increaseManufacturer(Manufacturer manufacturer) {
+        manufacturer.setCooperationTimes(0);
+        manufacturer.setManufacturerDate(new Date());
+        manufacturerMapper.insert(manufacturer);
+    }
+
+    @Override
+    public void deleteManufacturer(Integer id) {
+        manufacturerMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void changeManufacturer(Manufacturer manufacturer) {
+        manufacturerMapper.updateByPrimaryKeySelective(manufacturer);
     }
 }

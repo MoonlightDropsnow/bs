@@ -59,8 +59,13 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void changeAdmin(Admin admin) {
+        String password = admin.getTruePassword();
+        String salt = admin.getSalt();
+        String newPassword = new SimpleHash("MD5", password, salt, 1024).toString();
+        admin.setPassword(newPassword);
         adminMapper.updateByPrimaryKeySelective(admin);
     }
+
 
     @Override
     public void login(String username, String password) {
@@ -69,4 +74,9 @@ public class AdminServiceImpl implements AdminService {
         subject.login(authenticationToken);
     }
 
+    @Override
+    public void logout() {
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+    }
 }

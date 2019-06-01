@@ -20,8 +20,9 @@ public class WarehouseManagementApplicationTests extends SpringBootServletInitia
     @Test
     public void contextLoads() {
         Admin admin=new Admin();
-        admin.setName("zjh");
+        admin.setName("qaq");
         admin.setPassword("123123");
+        admin.setDuty("out");
         adminService.increaseAdmin(admin);
     }
 

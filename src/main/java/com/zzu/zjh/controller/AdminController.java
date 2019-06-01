@@ -44,7 +44,7 @@ public class AdminController {
             }
             try {
                 adminService.login(admin.getName(), admin.getPassword());
-                session.setAttribute("admin", admin);
+                session.setAttribute("admin", admin2);
                 return "ok";
             } catch (RuntimeException e) {
                 return "密码错误";
@@ -54,7 +54,10 @@ public class AdminController {
 
     @RequestMapping("quit")
     public String quit(HttpSession session) {
-        session.removeAttribute("admin");
+        if(session.getAttribute("admin")!=null){
+            session.removeAttribute("admin");
+        }
+        adminService.logout();
         return "redirect:/login.jsp";
     }
 

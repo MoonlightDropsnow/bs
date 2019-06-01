@@ -17,5 +17,7 @@ public interface AdminService {
 
     void changeAdmin(Admin admin);
 
+    void logout();
+
 
 }

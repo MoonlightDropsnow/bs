@@ -13,9 +13,14 @@ public interface ManufacturerService {
 
     Map<String, Integer> dataOfManufacturer(List<Manufacturer> manufacturers);
 
-    void importManufacturer(MultipartFile file);
-
     List<Manufacturer> queryAllManufacturers();
+
     ManufacturerDto getManufacturersByPage(int page, int rows);
+
+    void increaseManufacturer(Manufacturer manufacturer);
+
+    void deleteManufacturer(Integer id);
+
+    void changeManufacturer(Manufacturer manufacturer);
 
 }

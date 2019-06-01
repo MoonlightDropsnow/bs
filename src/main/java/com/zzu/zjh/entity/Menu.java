@@ -18,4 +18,6 @@ public class Menu {
     private String iconCls;
     private String url;
     private Integer parentId;
+    private Integer menuIn;
+    private Integer menuOut;
 }

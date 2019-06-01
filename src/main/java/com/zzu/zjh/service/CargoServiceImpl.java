@@ -49,6 +49,11 @@ public class CargoServiceImpl implements CargoService {
 
     @Override
     public void increaseCargo(Cargo cargo) {
+        if(cargo.getCargoNumber()<=50){
+            cargo.setCargoStatus(0);
+        }else{
+            cargo.setCargoStatus(1);
+        }
         cargoMapper.insert(cargo);
     }
 

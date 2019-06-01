@@ -30,7 +30,7 @@
                 if (row != null) {
                     if (confirm("确定删除？")) {
                         $.get(
-                            "${pageContext.request.contextPath}/cargo/removeCargo",
+                            "${pageContext.request.contextPath}/manufacturer/removeManufacturer",
                             {id: row.cargoId},
                             function () {
                                 $("#manufacturerDatagrid").edatagrid("reload");
@@ -66,10 +66,30 @@
             url: "${pageContext.request.contextPath}/manufacturer/allManufacturersThisPage",
             columns: [[
                 {field: 'manufacturerId', title: '厂家编号', width: '100'},
-                {field: 'manufacturerName', title: '厂家名称', width: '100'},
-                {field: 'manufacturerPhone', title: '联系方式', width: '200'},
-                {field: 'manufacturerAddress', title: '厂家地址', width: '100'},
-                {field: 'cooperationTimes', title: '进货次数', width: '100'},
+                {
+                    field: 'manufacturerName', title: '厂家名称', width: '100', editor: {
+                        type: "text",
+                        options: {required: true}
+                    }
+                },
+                {
+                    field: 'manufacturerPhone', title: '联系方式', width: '200', editor: {
+                        type: "text",
+                        options: {required: true}
+                    }
+                },
+                {
+                    field: 'manufacturerAddress', title: '厂家地址', width: '100', editor: {
+                        type: "text",
+                        options: {required: true}
+                    }
+                },
+                {
+                    field: 'cooperationTimes', title: '进货次数', width: '100', editor: {
+                        type: "text",
+                        options: {required: true}
+                    }
+                },
 
             ]],
             toolbar: toolbar,
@@ -79,7 +99,7 @@
             pageList: [5, 10, 15],
             autoSave: true,
             method: "get",
-            updateUrl: "${pageContext.request.contextPath}/cargo/editCargo",
+            updateUrl: "${pageContext.request.contextPath}/manufacturer/editManufacturer",
 
         });
         //添加
@@ -89,7 +109,7 @@
             height: 260,
             closed: true,
             cache: false,
-            href: '${pageContext.request.contextPath}/view/addCargo.jsp',
+            href: '${pageContext.request.contextPath}/view/addManufacturer.jsp',
             modal: true
         });
 

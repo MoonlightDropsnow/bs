@@ -31,7 +31,7 @@
                     if (confirm("确定删除？")) {
                         $.get(
                             "${pageContext.request.contextPath}/cargo/removeCargo",
-                            {id:row.cargoId},
+                            {id: row.cargoId},
                             function () {
                                 $("#cargoDatagrid").edatagrid("reload");
                                 $.messager.show({
@@ -68,8 +68,13 @@
                 {field: 'cargoId', title: '货物编号', width: '100'},
                 {field: 'cargoName', title: '货物名称', width: '100'},
                 {field: 'cargoPprice', title: '货物进价', width: '200'},
-                {field: 'cargoSprice', title: '货物售价', width: '100'},
-                {field: 'cargoNumber', title: '货物数量', width: '100'},
+                {
+                    field: 'cargoSprice', title: '货物售价', width: '100', editor: {
+                        type: "text",
+                        options: {required: true}
+                    }
+                },
+                {field: 'cargoNumber', title: '货物数量（件）', width: '100'},
                 {
                     field: 'cargoStatus', title: '货物状态', width: '100', editor: {
                         type: "text",
@@ -110,8 +115,9 @@
         });
 
     })
-    function checknum(obj){
-        if(!/^\d*(\.\d{1,2})?$/.test(obj.value)) alert("请输入正确的价钱（两位小数点）!");
+
+    function checknum(obj) {
+        if (!/^\d*(\.\d{1,2})?$/.test(obj.value)) alert("请输入正确的价钱（两位小数点）!");
     }
 </script>
 

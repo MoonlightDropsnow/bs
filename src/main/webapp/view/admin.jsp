@@ -64,7 +64,11 @@
                         type: "text",
                         options: {required: true}
                     }},
-                {field: 'duty', title: '账户级别', width: '200'},
+                {field: 'duty', title: '账户级别', width: '200', formatter: function (value, rows, index) {
+                    if(value == "in") return "入库";
+                    if(value == "out") return "出库";
+                    if(value == "all") return "高级";
+                    }},
 
             ]],
             toolbar: toolbar,

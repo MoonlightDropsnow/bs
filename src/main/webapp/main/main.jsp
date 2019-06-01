@@ -70,7 +70,7 @@
 <body class="easyui-layout">
 <div data-options="region:'north',split:true" style="height:60px;background-color: #7EC0EE">
     <div style="font-size: 24px;color: #FFFFFF;font-family: 楷体;font-weight: 900;width: 500px;float:left;padding-left: 20px;padding-top: 10px">
-        货物管理系统
+        出入库管理系统
     </div>
     <div style="font-size: 16px;color: #FFFFFF;font-family: 楷体;width: 300px;float:right;padding-top:15px">
         欢迎您:${sessionScope.admin.name}
@@ -90,7 +90,7 @@
 <div data-options="region:'center'">
     <div id="tabs" class="easyui-tabs" data-options="fit:true,narrow:true,pill:true">
         <div title="欢迎" data-options="iconCls:'icon-neighbourhood',"
-             style="background-image:url(${pageContext.request.contextPath}/main/image/main.jpg);background-repeat: no-repeat;background-size:100% 100%;"></div>
+             style="background-image:url(${pageContext.request.contextPath}/main/image/background.JPG);background-repeat: no-repeat;background-size:100% 100%;"></div>
     </div>
 
 </div>

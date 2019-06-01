@@ -16,7 +16,7 @@
                 return $(this).form('validate');
             },
             success: function (data) {
-                if(data!="ok"){
+                if(data!='"ok"'){
                     $("#inOperationDialog").dialog("close");
                     alert(data);
                 }else{
